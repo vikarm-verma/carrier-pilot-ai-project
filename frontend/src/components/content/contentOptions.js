@@ -1,0 +1,2 @@
+export const categories = ['AI & Technology', 'Career & Learning', 'Project Showcase', 'Industry Insights', 'Personal Branding']
+export const contentTypes = ['Text Post', 'Carousel', 'Poll', 'Story', 'Project Showcase', 'Industry Insight']

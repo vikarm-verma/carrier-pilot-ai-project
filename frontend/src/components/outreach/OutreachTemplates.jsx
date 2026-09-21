@@ -1,0 +1,5 @@
+function OutreachTemplates({ templates, onUse, onEdit, onDelete }) {
+  return <section className="panel outreach-templates-panel"><div className="section-heading"><div><p className="eyebrow accent-eyebrow">Reusable language</p><h2>Templates</h2></div><span className="content-count">{templates.length} available</span></div><div className="template-list">{templates.map((template) => <article className="template-row" key={template.id}><div><strong>{template.name}</strong><p>{template.messageType}{template.subject ? ` · ${template.subject}` : ''}</p><small>{template.message}</small></div><div className="template-actions"><button className="small-action" type="button" onClick={() => onUse(template)}>Use template</button><button className="small-action" type="button" onClick={() => onEdit(template)}>Edit</button><button className="remove-button" type="button" onClick={() => onDelete(template.id)}>Delete</button></div></article>)}</div></section>
+}
+
+export default OutreachTemplates

@@ -1,0 +1,14 @@
+import { useState } from 'react'
+import { messageTypes, outreachStatuses } from './outreachData'
+
+function OutreachComposer({ record, contacts, opportunities, onSave, onCancel }) {
+  const isEditing = Boolean(record?.id)
+  const value = record || { contactId: contacts[0]?.id || '', opportunityId: '', messageType: messageTypes[0], subject: '', message: '', followUpDate: '', status: 'Draft' }
+  const [message, setMessage] = useState(value.message)
+  const submit = (event) => { event.preventDefault(); const data = new FormData(event.currentTarget); onSave(Object.fromEntries(data.entries())) }
+  return <section className="panel outreach-composer-panel"><div className="section-heading"><div><p className="eyebrow accent-eyebrow">Message workspace</p><h2>{isEditing ? 'Edit outreach' : 'Compose a message'}</h2></div><button className="quiet-button" type="button" onClick={onCancel}>Close</button></div><form className="outreach-form" onSubmit={submit}><div className="form-grid-two"><label>Contact<select name="contactId" defaultValue={value.contactId} required><option value="">Choose a contact</option>{contacts.map((contact) => <option key={contact.id} value={contact.id}>{contact.name} · {contact.company}</option>)}</select></label><label>Opportunity <span className="optional-label">optional</span><select name="opportunityId" defaultValue={value.opportunityId}><option value="">No linked opportunity</option>{opportunities.map((opportunity) => <option key={opportunity.id} value={opportunity.id}>{opportunity.title} · {opportunity.company}</option>)}</select></label></div><div className="form-grid-three"><label>Message type<select name="messageType" defaultValue={value.messageType}>{messageTypes.map((type) => <option key={type}>{type}</option>)}</select></label><label>Status<select name="status" defaultValue={value.status}>{outreachStatuses.map((status) => <option key={status}>{status}</option>)}</select></label><label>Follow-up date<input name="followUpDate" type="date" defaultValue={value.followUpDate} /></label></div><label>Subject <span className="optional-label">optional</span><input name="subject" defaultValue={value.subject} placeholder="A clear reason for reaching out" /></label><label>Message<textarea name="message" value={message} onChange={(event) => setMessage(event.target.value)} rows="8" placeholder="Write a thoughtful, specific message..." required /></label><div className="composer-footer"><span><strong>{message.length}</strong> characters · <strong>{countWords(message)}</strong> words</span><div className="outreach-form-actions"><button className="quiet-button" type="button" onClick={onCancel}>Cancel</button><button className="primary-button" type="submit">{isEditing ? 'Save changes' : 'Save message'} <span>-&gt;</span></button></div></div></form></section>
+}
+
+function countWords(value) { return value.trim() ? value.trim().split(/\s+/).length : 0 }
+
+export default OutreachComposer
