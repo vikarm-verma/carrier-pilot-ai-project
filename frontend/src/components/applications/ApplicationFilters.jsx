@@ -1,0 +1,8 @@
+import { applicationStatuses } from './applicationData'
+
+function ApplicationFilters({ filters, workModes, sources, onChange, onReset }) {
+  const update = (field, value) => onChange({ ...filters, [field]: value })
+  return <div className="application-filter-bar"><input value={filters.search} onChange={(event) => update('search', event.target.value)} placeholder="Search job title or company..." aria-label="Search applications" /><select value={filters.status} onChange={(event) => update('status', event.target.value)} aria-label="Filter by status"><option value="All">All statuses</option>{applicationStatuses.map((status) => <option key={status}>{status}</option>)}</select><select value={filters.workMode} onChange={(event) => update('workMode', event.target.value)} aria-label="Filter by work mode"><option value="All">All work modes</option>{workModes.map((mode) => <option key={mode}>{mode}</option>)}</select><select value={filters.source} onChange={(event) => update('source', event.target.value)} aria-label="Filter by source"><option value="All">All sources</option>{sources.map((source) => <option key={source}>{source}</option>)}</select><select value={filters.sort} onChange={(event) => update('sort', event.target.value)} aria-label="Sort applications"><option value="updated-desc">Recently updated</option><option value="application-desc">Application date</option><option value="follow-up-asc">Follow-up date</option><option value="company-asc">Company</option><option value="job-asc">Job title</option></select><button className="quiet-button" type="button" onClick={onReset}>Reset</button></div>
+}
+
+export default ApplicationFilters

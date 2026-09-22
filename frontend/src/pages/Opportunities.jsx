@@ -6,9 +6,11 @@ import OpportunityProfile from '../components/opportunities/OpportunityProfile'
 import OpportunitySearch from '../components/opportunities/OpportunitySearch'
 import OpportunitySort from '../components/opportunities/OpportunitySort'
 import SavedOpportunities from '../components/opportunities/SavedOpportunities'
+import { createOpportunityDraft } from '../components/applications/applicationData'
 import { allSkills, demoOpportunities, salaryRanges } from '../components/opportunities/opportunityData'
 
 const SAVED_KEY = 'careerpilot_opportunities'
+const APPLICATION_DRAFT_KEY = 'careerpilot_application_draft'
 const defaultProfile = { name: 'Alex Morgan', headline: '', role: '', about: '', skills: [], experience: [], preferences: { roles: '', locations: '', workMode: '', industries: '' } }
 const emptySearch = { keyword: '', location: '', company: '' }
 const emptyFilters = { employmentType: 'any', workMode: 'any', experienceLevel: 'any', salaryRange: 'any', skill: 'any', company: 'any' }
@@ -55,8 +57,12 @@ function Opportunities() {
   }).sort((left, right) => sortOpportunities(left, right, sort, profileText))
   const companies = [...new Set(demoOpportunities.map((opportunity) => opportunity.company))].sort()
   const isSaved = (opportunity) => savedItems.some((saved) => saved.opportunity.id === opportunity.id)
+  const trackApplication = (opportunity) => {
+    window.localStorage.setItem(APPLICATION_DRAFT_KEY, JSON.stringify(createOpportunityDraft(opportunity)))
+    window.location.hash = 'applications'
+  }
 
-  if (selectedOpportunity) return <main className="dashboard-content opportunity-page"><OpportunityDetails opportunity={selectedOpportunity} isSaved={isSaved(selectedOpportunity)} onSave={toggleSaved} onBack={() => setSelectedOpportunity(null)} /></main>
+  if (selectedOpportunity) return <main className="dashboard-content opportunity-page"><OpportunityDetails opportunity={selectedOpportunity} isSaved={isSaved(selectedOpportunity)} onSave={toggleSaved} onTrackApplication={trackApplication} onBack={() => setSelectedOpportunity(null)} /></main>
 
   return (
     <main className="dashboard-content opportunity-page">

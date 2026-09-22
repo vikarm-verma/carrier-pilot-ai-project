@@ -1,10 +1,10 @@
-export const contactTypes = ['Recruiter', 'Hiring Manager', 'HR Professional', 'Employee / Potential Referral', 'Industry Professional', 'Other']
+export const contactTypes = ['Recruiter', 'Hiring Manager', 'HR', 'Employee', 'Referral', 'Industry', 'Other']
 export const messageTypes = ['Connection Request', 'Introduction', 'Job Inquiry', 'Referral Request', 'Follow-up', 'Thank You', 'Networking']
 export const outreachStatuses = ['Draft', 'Ready', 'Sent', 'Replied', 'Follow-up Due', 'Closed']
 
 export const defaultContacts = [
   { id: 'contact-1', name: 'Jordan Kim', jobTitle: 'Design Lead', company: 'Northstar Labs', contactType: 'Hiring Manager', linkedinUrl: 'https://linkedin.com/in/jordan-kim-demo', email: '', notes: 'Met during a product design community session.' },
-  { id: 'contact-2', name: 'Riya Shah', jobTitle: 'Product Manager', company: 'SignalWorks', contactType: 'Industry Professional', linkedinUrl: '', email: 'riya@example.com', notes: 'Works on applied AI products.' },
+  { id: 'contact-2', name: 'Riya Shah', jobTitle: 'Product Manager', company: 'SignalWorks', contactType: 'Industry', linkedinUrl: '', email: 'riya@example.com', notes: 'Works on applied AI products.' },
   { id: 'contact-3', name: 'Dylan Lee', jobTitle: 'Talent Partner', company: 'Arc Studio', contactType: 'Recruiter', linkedinUrl: '', email: '', notes: 'Shared an early-career engineering opportunity.' },
 ]
 
@@ -14,7 +14,7 @@ export const defaultOutreach = [
   { id: 'outreach-3', contactId: 'contact-3', contact: defaultContacts[2], opportunityId: 'opp-software-06', opportunity: null, messageType: 'Follow-up', subject: 'Following up on our conversation', message: 'Hi Dylan, I wanted to follow up on our conversation and share that I remain interested in the role.', status: 'Follow-up Due', followUpDate: '2026-09-20', createdAt: '2026-09-13T09:00:00.000Z', updatedAt: '2026-09-19T09:00:00.000Z' },
 ]
 
-export const defaultTemplates = [
+export const builtInTemplates = [
   { id: 'template-1', name: 'Recruiter Introduction', messageType: 'Introduction', subject: '', message: 'Hi [Name], I came across your work at [Company] and wanted to introduce myself. I am [Your role] exploring opportunities in [Target area]. I would be glad to connect and learn more about your team.' },
   { id: 'template-2', name: 'Hiring Manager Introduction', messageType: 'Introduction', subject: '', message: 'Hi [Name], I have been following the work your team is doing at [Company]. My background in [Skills] connects closely with the problems you are solving, and I would appreciate the chance to connect.' },
   { id: 'template-3', name: 'Referral Request', messageType: 'Referral Request', subject: 'Quick question about [Role]', message: 'Hi [Name], I am interested in the [Role] opportunity at [Company]. Since you know the team, would you be open to sharing any perspective on the role or referral process?' },
