@@ -95,7 +95,7 @@ function ContentPlanner() {
 
   return (
     <main className="dashboard-content content-page">
-      <div className="content-page-heading"><div><p className="eyebrow accent-eyebrow">Personal branding command center</p><h2>Content Assistant</h2><p>Turn your professional perspective into a consistent signal.</p></div><div className="content-page-actions"><button className="secondary-button" type="button" onClick={() => setShowAIGenerator((current) => !current)}>AI generator <span>AI</span></button><button className="primary-button" type="button" onClick={() => openEditor()}>Create post <span>+</span></button></div></div>
+      <div className="content-page-heading"><div><p className="eyebrow accent-eyebrow">Personal branding command center</p><h2>Content Assistant</h2><p>Turn your professional perspective into a consistent signal.</p></div><div className="content-page-actions"><button className="secondary-button" type="button" onClick={() => setShowAIGenerator((current) => !current)}>AI Content Generator</button><button className="primary-button" type="button" onClick={() => openEditor()}>Create post <span>+</span></button></div></div>
       <ContentStats counts={counts} />
       {showAIGenerator && <AIContentGenerator profile={profile} onSaveDraft={saveGeneratedDraft} onCancel={() => setShowAIGenerator(false)} />}
 
