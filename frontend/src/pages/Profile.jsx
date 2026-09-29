@@ -13,80 +13,14 @@ import {
   emptyCertification,
   emptyEducation,
 } from '../components/profile/profileDefaults'
-
-const STORAGE_KEY = 'careerpilot_profile'
+import {
+  PROFILE_STORAGE_KEY,
+  PROFILE_UPDATED_EVENT,
+  getSavedProfile,
+} from '../components/profile/profileStorage'
 
 const N8N_WEBHOOK_URL =
   'http://localhost:5678/webhook-test/careerpilot/profile'
-
-const defaultProfile = {
-  name: 'Alex Morgan',
-  headline:
-    'Aspiring product designer building thoughtful digital experiences',
-  role: 'Career builder · Open to new opportunities',
-  photo: '',
-  about: '',
-  experience: [],
-  skills: [],
-  preferences: {
-    roles: '',
-    locations: '',
-    workMode: 'Remote',
-    industries: '',
-  },
-  education: [],
-  certifications: [],
-  links: {
-    linkedin: '',
-    github: '',
-    portfolio: '',
-  },
-}
-
-function getSavedProfile() {
-  try {
-    const saved = window.localStorage.getItem(STORAGE_KEY)
-
-    if (!saved) {
-      return defaultProfile
-    }
-
-    const parsed = JSON.parse(saved)
-
-    return {
-      ...defaultProfile,
-      ...parsed,
-
-      preferences: {
-        ...defaultProfile.preferences,
-        ...(parsed.preferences || {}),
-      },
-
-      links: {
-        ...defaultProfile.links,
-        ...(parsed.links || {}),
-      },
-
-      experience: Array.isArray(parsed.experience)
-        ? parsed.experience
-        : [],
-
-      skills: Array.isArray(parsed.skills)
-        ? parsed.skills
-        : [],
-
-      education: Array.isArray(parsed.education)
-        ? parsed.education
-        : [],
-
-      certifications: Array.isArray(parsed.certifications)
-        ? parsed.certifications
-        : [],
-    }
-  } catch {
-    return defaultProfile
-  }
-}
 
 function calculateCompletion(profile) {
   const checks = [
@@ -313,9 +247,10 @@ function Profile() {
 
   const saveChanges = () => {
     window.localStorage.setItem(
-      STORAGE_KEY,
+      PROFILE_STORAGE_KEY,
       JSON.stringify(draft)
     )
+    window.dispatchEvent(new Event(PROFILE_UPDATED_EVENT))
 
     setSavedProfile(draft)
     setIsEditing(false)
